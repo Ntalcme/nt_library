@@ -25,6 +25,10 @@ install:		all
     				cp $$dir/*.h $(INSTALL_INC_DIR)/$$dir; \
 				done
 				@echo "$(NAME) library was installed in $(INSTALL_LIB_DIR) and its headers in $(INSTALL_INC_DIR) !"
+				@echo "Cleaning up local build files..."
+				$(RM) $(OBJ_DIR)
+				$(RM) $(NAME)
+				@echo "Local build files removed."
 
 uninstall:
 				$(RM) $(INSTALL_LIB_DIR)/$(NAME)
