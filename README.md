@@ -86,7 +86,7 @@ My creator Ntalcme has 6 letters in his nickname.
 You also can include only some parts of the library.  
 Example:
 ```C
-#include <libnt/conversion/conversion.h> /* or #include "conversion/conversion.h" if you don't install locally */
+#include <libnt/conversion/conversion.h> /* or #include "conversion/conversion.h" if linking locally without system install */
 ```
 
 ## System-Wide Uninstallation (`make uninstall`)
