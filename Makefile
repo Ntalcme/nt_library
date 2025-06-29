@@ -15,6 +15,7 @@ INSTALL_INC_DIR	= $(INSTALL_DIR)/include/$(NAME:.a=)
 
 all:			$(NAME)
 
+# May need sudo
 install:		all
 				mkdir -p $(INSTALL_LIB_DIR)
 				cp $(NAME) $(INSTALL_LIB_DIR)
@@ -30,6 +31,7 @@ install:		all
 				$(RM) $(NAME)
 				@echo "Local build files removed."
 
+# May need sudo
 uninstall:
 				$(RM) $(INSTALL_LIB_DIR)/$(NAME)
 				$(RM) $(INSTALL_INC_DIR)
