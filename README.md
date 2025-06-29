@@ -2,6 +2,15 @@
 
 **nt_library** is my custom library for C including differents features.
 
+### Summarry
+[Features](#features)  
+[Local Compilation & Linking](#local-compilation--linking)  
+[System-Wide Installation](#system-wide-installation-make-install)  
+[Usage](#usage)  
+[System-Wide Uninstallation](#system-wide-uninstallation-make-uninstall)  
+[License](#license)  
+[Author](#author)
+
 ## Features
 
 - Conversion
