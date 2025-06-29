@@ -9,7 +9,7 @@ char *nt_strdup(const char *str)
 {
         char    *res;
         size_t  reslen;  
-        int     i;
+        size_t     i;
 
         if (!str) return (NULL);
 
