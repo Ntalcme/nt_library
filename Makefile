@@ -11,7 +11,7 @@ OBJS 			= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
 DEP_FILES		= $(OBJS:.o=.d)
 INSTALL_DIR		= /usr/local
 INSTALL_LIB_DIR	= $(INSTALL_DIR)/lib
-INSTALL_INC_DIR	= $(INSTALL_DIR)/include/$(NAME:.a=) 
+INSTALL_INC_DIR	= $(INSTALL_DIR)/include/$(NAME:.a=)
 
 all:			$(NAME)
 
@@ -22,7 +22,7 @@ install:		all
 				cp libnt.h $(INSTALL_INC_DIR)
 				for dir in $(SRC_DIR); do \
 					mkdir -p $(INSTALL_INC_DIR)/$$dir; \
-					cp $$dir/*.h $(INSTALL_INC_DIR)/$$dir; \
+    				cp $$dir/*.h $(INSTALL_INC_DIR)/$$dir; \
 				done
 				@echo "$(NAME) library was installed in $(INSTALL_LIB_DIR) and its headers in $(INSTALL_INC_DIR) !"
 
