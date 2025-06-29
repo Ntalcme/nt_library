@@ -1,6 +1,6 @@
 # nt_library - My personal library for C
 
-**nt_library** is  my custom library for C including differents features.
+**nt_library** is my custom library for C including differents features.
 
 ## Features
 
