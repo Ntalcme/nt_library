@@ -2,6 +2,12 @@
 
 **nt_library** is my custom library for C including differents features.
 
+| Project | nt_library                 |
+|:--------|---------------------------:|
+| Open    | 2025-06-28                 |
+| Closed  | *Not closed yet*           |
+
+
 ### Summarry
 [Features](#features)  
 [Local Compilation & Linking](#local-compilation--linking)  
