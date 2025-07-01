@@ -30,7 +30,7 @@ static int digits_size(int n)
  * @param value - The integer
  * @return  A char pointer to the converted integer
  */
-char* nt_itoa(long long value)
+char *nt_itoa(long long value)
 {
     char *res;
     int i;

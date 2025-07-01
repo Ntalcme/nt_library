@@ -10,7 +10,7 @@
 ssize_t nt_putchar_fd(const char c, const int fd);
 ssize_t nt_putstr_fd(const char *str, const int fd);
 ssize_t nt_putnbr_fd(int n, const int fd);
-char* nt_read_line(const int fd);
-char** nt_read_lines(const int fd);
+char *nt_read_line(const int fd);
+char **nt_read_lines(const int fd);
 
 #endif

@@ -15,7 +15,7 @@ static int hex_digits_needed(unsigned long value) {
     return (res);
 }
 
-char* nt_itohex(unsigned long long value, char *base) {
+char *nt_itohex(unsigned long long value, char *base) {
     char *res; 
     int digits_needed;
     
