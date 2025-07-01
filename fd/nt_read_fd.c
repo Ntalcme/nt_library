@@ -3,48 +3,36 @@
 
 char *nt_read_line(const int fd)
 {
-    char *line;
-    char *tmp;
+    nt_char_buffer line;
     char c;
-    size_t i;
-    size_t bufsize;
     ssize_t n;
 
     if (fd < 0) return (NULL);
 
-    bufsize = 128;
-    line = malloc(sizeof(char) * bufsize);
+    line.capacity = 128;
+    line.data = malloc(sizeof(char) * line.capacity);
 
-    if (!line) return (NULL);
+    if (!line.data) return (NULL);
     
-    i = 0;
+    line.len = 0;
     n = read(fd, &c, 1);
     while (n == 1)               
     {
         if (c == '\n') break;
-
-        if (i+1 >= bufsize)
+        if(!nt_char_buffer_add_char(&line, c))
         {
-            bufsize *= 2;
-            tmp = realloc(line, sizeof(char) * bufsize);
-            if (!tmp) 
-            { 
-                free(line); 
-                return (NULL); 
-            }
-            line = tmp;
-        }
-        line[i++] = c;
+            free(line.data);
+            return (NULL);
+        } 
         n = read(fd, &c, 1);
     }
 
-    if (n == -1 || (i == 0 && n == 0)) 
+    if (n == -1 || (line.len == 0 && n == 0)) 
     {
-        free(line);
+        free(line.data);
         return (NULL);
     }
-    line[i] = '\0';
-    return line;
+    return line.data;
 }
 
 static void free_buffer(char **buffer, size_t count)
