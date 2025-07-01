@@ -14,10 +14,12 @@ int nt_char_buffer_init(nt_char_buffer *buf, int has_arg, ...)
     }
 
     buf->data = malloc(sizeof(char) * capacity);
-    if (!buf->data)
-        return (0);
+    
+    if (!buf->data) return (0);
+
     buf->len = 0;
     buf->capacity = NT_CHAR_BUFFER_INIT_CAPACITY;
     buf->data[0] = '\0';
+
     return (1);
 }
