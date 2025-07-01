@@ -9,7 +9,7 @@
 | Closed  | *Not closed yet*           |
 
 
-### Sumarry
+### Summary
 [Features](#features)  
 [Local Compilation & Linking](#local-compilation--linking)  
 [System-Wide Installation](#system-wide-installation-make-install)  
