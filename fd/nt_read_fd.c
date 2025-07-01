@@ -1,7 +1,7 @@
 #include "nt_fd.h"
 #include <stdlib.h>
 
-char *nt_read_line(const int fd)
+char* nt_read_line(const int fd)
 {
     char *line;
     char *tmp;
@@ -56,7 +56,7 @@ static void free_buffer(char **buffer, size_t count)
     free(buffer);
 }
 
-char **nt_read_lines(const int fd)
+char** nt_read_lines(const int fd)
 {
     char **lines;
     char **tmp;
