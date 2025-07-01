@@ -21,8 +21,10 @@ int nt_char_buffer_add_char(nt_char_buffer *buf, const char c)
         buf->data = tmp;
         buf->capacity = new_capacity;
     }
+
     buf->data[buf->len] = c;
     buf->len++;
     buf->data[buf->len] = '\0';
+    
     return (1);
 }
