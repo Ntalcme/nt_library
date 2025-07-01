@@ -1,5 +1,5 @@
-#ifndef NT_STR_UTILS
-#define NT_STR_UTILS
+#ifndef NT_STR_UTILS_H
+#define NT_STR_UTILS_H
 
 # include <stdlib.h>
 # include "nt_char_buffer/nt_char_buffer.h"

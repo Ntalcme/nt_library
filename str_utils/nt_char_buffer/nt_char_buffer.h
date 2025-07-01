@@ -1,5 +1,5 @@
-#ifndef NT_CHAR_BUFFER
-#define NT_CHAR_BUFFER
+#ifndef NT_CHAR_BUFFER_H
+#define NT_CHAR_BUFFER_H
 
 # include <stdlib.h>
 # include <stdarg.h>

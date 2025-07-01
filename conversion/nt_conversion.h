@@ -1,5 +1,5 @@
-#ifndef NT_CONVERSION
-#define NT_CONVERSION
+#ifndef NT_CONVERSION_H
+#define NT_CONVERSION_H
 
 # include <stdlib.h>
 # include "../str_utils/nt_str_utils.h"

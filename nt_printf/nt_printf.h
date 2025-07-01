@@ -1,5 +1,5 @@
-#ifndef NT_PRINTF
-#define NT_PRINTF
+#ifndef NT_PRINTF_H
+#define NT_PRINTF_H
 
 # include <stdarg.h>
 # include "../libnt.h"
