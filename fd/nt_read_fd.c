@@ -9,13 +9,13 @@ char *nt_read_line(const int fd)
 
     if (fd < 0) return (NULL);
 
-    if(!nt_char_buffer_init(&line, 1, 128)) return (NULL);
+    if (!nt_char_buffer_init(&line, 1, 128)) return (NULL);
 
     n = read(fd, &c, 1);
     while (n == 1)               
     {
         if (c == '\n') break;
-        if(!nt_char_buffer_add_char(&line, c))
+        if (!nt_char_buffer_add_char(&line, c))
         {
             free(line.data);
             return (NULL);
