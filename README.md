@@ -8,7 +8,7 @@
 | Closed  | *Not closed yet*           |
 
 
-### Summarry
+### Sumarry
 [Features](#features)  
 [Local Compilation & Linking](#local-compilation--linking)  
 [System-Wide Installation](#system-wide-installation-make-install)  
@@ -29,10 +29,13 @@
     - `nt_putstr`- Writes a string to the given file descriptor.
     - `nt_read_line` - Reads a single line from the given file descriptor *(ommissing the character "\n")*.
     - `nt_read_lines` - Reads all lines from the given file descriptor using `read_line`.
+- `nt_printf` - Minimalist version of C printf function.
 - String utils
+    - `nt_char_buffer` - Structure of a char buffer
+        - `nt_char_buffer_add_char` - Add a char to a *nt_char_buffer* structure.
+        - `nt_char_buffer_init` - Init a *nt_char_buffer* (can init a custom start capacity).
     - `nt_strdup` - Duplicates a string.
     - `nt_strlen` - Returns the length of a string.
-- `nt_printf` - Minimalist version of C printf function
 
 ## Local Compilation & Linking
 
