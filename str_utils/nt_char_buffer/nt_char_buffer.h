@@ -2,8 +2,7 @@
 #define NT_CHAR_BUFFER
 
 # include <stdlib.h>
-
-int nt_char_buffer_add_char(nt_char_buffer *buf, const char c);
+# include <stdarg.h>
 
 typedef struct nt_char_buffer
 {
@@ -11,5 +10,11 @@ typedef struct nt_char_buffer
     size_t len;
     size_t capacity;
 } nt_char_buffer;
+
+int nt_char_buffer_add_char(nt_char_buffer *buf, const char c);
+int nt_char_buffer_init(nt_char_buffer *buf, int has_arg, ...);
+
+#define NT_CHAR_BUFFER_INIT_LEN 0
+#define NT_CHAR_BUFFER_INIT_CAPACITY 16
 
 #endif

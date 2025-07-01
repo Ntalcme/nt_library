@@ -9,12 +9,8 @@ char *nt_read_line(const int fd)
 
     if (fd < 0) return (NULL);
 
-    line.capacity = 128;
-    line.data = malloc(sizeof(char) * line.capacity);
+    if(!nt_char_buffer_init(&line, 1, 128)) return (NULL);
 
-    if (!line.data) return (NULL);
-    
-    line.len = 0;
     n = read(fd, &c, 1);
     while (n == 1)               
     {

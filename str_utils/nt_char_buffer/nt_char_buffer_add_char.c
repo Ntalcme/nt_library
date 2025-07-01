@@ -7,7 +7,7 @@ int nt_char_buffer_add_char(nt_char_buffer *buf, const char c)
 
     if(buf->capacity <= 0)
     {
-        buf->capacity = 16;
+        buf->capacity = NT_CHAR_BUFFER_INIT_CAPACITY;
     }
 
     if (buf->len + 1 >= buf->capacity)
