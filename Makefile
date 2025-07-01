@@ -4,10 +4,9 @@ CFLAGS			= -Wall -Werror -Wextra -pedantic
 AR 				= ar
 ARFLAGS 		= rcs
 RM 				= rm -rf
-SRC_DIR 		= conversion fd str_utils nt_printf str_utils/nt_char_buffer
-SRCS 			=  $(foreach dir, $(SRC_DIR), $(wildcard $(dir)/*.c))
+SRCS 			=  $(shell find . -name '*.c')
 OBJ_DIR     	= obj
-OBJS 			= $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS 			= $(patsubst ./%.c, $(OBJ_DIR)/%.o, $(SRCS))
 DEP_FILES		= $(OBJS:.o=.d)
 INSTALL_DIR		= /usr/local
 INSTALL_LIB_DIR	= $(INSTALL_DIR)/lib
@@ -21,7 +20,7 @@ install:		all
 				cp $(NAME) $(INSTALL_LIB_DIR)
 				mkdir -p $(INSTALL_INC_DIR)
 				cp libnt.h $(INSTALL_INC_DIR)
-				for dir in $(SRC_DIR); do \
+				@find . -name '*.h' -exec dirname {} \; | sort -u | while read dir; do \
 					mkdir -p $(INSTALL_INC_DIR)/$$dir; \
     				cp $$dir/*.h $(INSTALL_INC_DIR)/$$dir; \
 				done
