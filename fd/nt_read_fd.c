@@ -50,6 +50,7 @@ char **nt_read_lines(const int fd)
 
     bufsize = 20;
     lines = malloc(sizeof(char*) * bufsize);
+    lines[i] = NULL;
 
     if (!lines) return (NULL);
 
