@@ -1,2 +1,7 @@
-.a
-obj/ 
+# Ignore build artifacts such as static libraries, object files, and build directories.
+# These files are generated during compilation and should not be pushed to the repository.
+*.o
+
+# Below is from the Makefile
+*.a 
+obj/
