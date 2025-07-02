@@ -39,6 +39,7 @@ char *nt_read_line(const int fd)
 
     res = nt_strdup(line.data);
     nt_buffer_free(&line);
+    if (!res) return (NULL);
     return (res);
 }
 
@@ -52,8 +53,9 @@ nt_buffer *nt_read_lines(const int fd)
 
     while ((line = nt_read_line(fd)) != NULL)
     {
-        if (nt_buffer_add(lines, line))
+        if (nt_buffer_add(lines, &line))
         {
+            free(line);
             nt_buffer_delete(lines); 
             return (NULL);
         }
