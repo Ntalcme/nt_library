@@ -6,14 +6,16 @@
 
 #define DEFINE_BUFFER_TYPE(type, TypeName)                                                                  \
                                                                                                             \
-typedef struct {                                                                                            \
+typedef struct                                                                                              \
+{                                                                                                           \
     type *data;                                                                                             \
     size_t len;                                                                                             \
     size_t capacity;                                                                                        \
     void (*destructor)(type*);                                                                              \
 } nt_##TypeName##_buffer;                                                                                   \
                                                                                                             \
-int nt_##TypeName##_buffer_init(nt_##TypeName##_buffer *buf, size_t capacity, void (*destructor)(type*)) {   \
+int nt_##TypeName##_buffer_init(nt_##TypeName##_buffer *buf, size_t capacity, void (*destructor)(type*))    \
+{                                                                                                           \
     buf->data = capacity != 0 ? malloc(capacity * sizeof(type)) : NULL;                                     \
     if (capacity != 0 && !buf->data) return (0);                                                            \
     buf->len = 0;                                                                                           \
@@ -28,7 +30,7 @@ int nt_##TypeName##_buffer_add(nt_##TypeName##_buffer *buf, type val) {         
                                                                                                             \
     if (buf->len == buf->capacity) {                                                                        \
         new_cap = buf->capacity ? buf->capacity * 2 : 4;                                                    \
-        new_data = realloc(buf->data, new_cap * sizeof(type));                                             \
+        new_data = realloc(buf->data, new_cap * sizeof(type));                                              \
         if (!new_data) return (0);                                                                          \
         buf->data = new_data;                                                                               \
         buf->capacity = new_cap;                                                                            \
@@ -37,12 +39,14 @@ int nt_##TypeName##_buffer_add(nt_##TypeName##_buffer *buf, type val) {         
     return (1);                                                                                             \
 }                                                                                                           \
                                                                                                             \
-void nt_##TypeName##_buffer_free(nt_##TypeName##_buffer *buf) {                                             \  
+void nt_##TypeName##_buffer_free(nt_##TypeName##_buffer *buf) {                                             \
     size_t i;                                                                                               \
                                                                                                             \
-    if (buf->destructor) {                                                                                  \
-        for (size_t i = 0; i < buf->len; i++) {                                                             \
-            buf->destructor(buf->data[i]);                                                                  \
+    if (buf->destructor)                                                                                    \
+    {                                                                                                       \
+        for (i = 0; i < buf->len; i++)                                                                      \
+        {                                                                                                   \
+            buf->destructor(&buf->data[i]);                                                                 \
         }                                                                                                   \
     }                                                                                                       \
     free(buf->data);                                                                                        \
@@ -50,10 +54,41 @@ void nt_##TypeName##_buffer_free(nt_##TypeName##_buffer *buf) {                 
     buf->len = 0;                                                                                           \
     buf->capacity = 0;                                                                                      \
     buf->destructor = NULL;                                                                                 \
-}                                                                                                           \                                                           
+}                                                                                                           \
                                                                                                             \
-int nt_##TypeName##_buffer_is_empty(nt_##TypeName##_buffer *buf) {                                          \
-    return (buf->data == NULL && buf->len == 0 && buf->capacity == 0);                                                                                                                            \
-}   
+void nt_##TypeName##_buffer_reset(nt_##TypeName##_buffer *buf)                                              \
+{                                                                                                           \
+    size_t i;                                                                                               \
+                                                                                                            \
+    if (buf->destructor)                                                                                    \
+    {                                                                                                       \
+        for (i = 0; i < buf->len; i++)                                                                      \
+        {                                                                                                   \
+            buf->destructor(&buf->data[i]);                                                                 \
+        }                                                                                                   \
+    }                                                                                                       \
+    buf->len = 0;                                                                                           \
+}                                                                                                           \
+                                                                                                            \
+nt_##TypeName##_buffer *nt_##TypeName##_buffer_new(size_t capacity, void (*destructor)(type *))             \
+{                                                                                                           \
+    nt_##TypeName##_buffer *buf;                                                                            \
+                                                                                                            \
+    buf = malloc(sizeof(nt_##TypeName##_buffer));                                                           \
+    if (!buf) return (NULL);                                                                                \
+    if (!nt_##TypeName##_buffer_init(buf, capacity, destructor))                                            \
+    {                                                                                                       \
+        free(buf);                                                                                          \
+        return (NULL);                                                                                      \
+    }                                                                                                       \
+    return (buf);                                                                                           \
+}                                                                                                           \
+                                                                                                            \
+void nt_##TypeName##_delete(nt_##TypeName##_buffer *buf)                                                    \
+{                                                                                                           \
+    if (!buf) return;                                                                                       \
+    nt_##TypeName##_buffer_free(buf);                                                                       \
+    free(buf);                                                                                              \
+}
 
 #endif
