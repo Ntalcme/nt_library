@@ -39,30 +39,27 @@ char *nt_read_line(const int fd)
     return line.data;
 }
 
-nt_ptr_char_buffer nt_read_lines(const int fd)
+nt_ptr_char_buffer *nt_read_lines(const int fd)
 {
-    nt_ptr_char_buffer lines;
+    nt_ptr_char_buffer *lines;
     char *line;
 
-    if (!nt_ptr_char_buffer_init(&lines, 16, free))
-    {
-        nt_ptr_char_buffer_init(&lines, 0, free);
-        return (lines);
-    }
+    lines = nt_ptr_char_buffer_new(16, free);
+    if (!lines) return (NULL);
 
     while ((line = nt_read_line(fd)) != NULL)
     {
-        if (!nt_ptr_char_buffer_add(&lines, line))
+        if (!nt_ptr_char_buffer_add(lines, line))
         {
-            nt_ptr_char_buffer_free(&lines); 
-            return (lines);
+            nt_ptr_char_buffer_delete(lines); 
+            return (NULL);
         }
     }
 
-    if (!nt_ptr_char_buffer_add(&lines, NULL))
+    if (!nt_ptr_char_buffer_add(lines, NULL))
     {
-        nt_ptr_char_buffer_free(&lines); 
-        return (lines);
+        nt_ptr_char_buffer_delete(lines); 
+        return (NULL);
     }
 
     return (lines);
