@@ -6,6 +6,10 @@ void nt_buffer_remove(nt_buffer *buf, size_t i)
 
     if (!buf || !buf->data || i >= buf->len) return;
 
+    if (buf->destructor) {
+        buf->destructor((char *)buf->data + (i * buf->element_size));
+    }
+
     bytes_to_move = (buf->len - 1 - i) * buf->element_size;
     nt_memmove
     (
