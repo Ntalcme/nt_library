@@ -4,7 +4,6 @@
 
 | Project | nt_library                 |
 |:--------|---------------------------:|
-| Time on it | [![wakatime](https://wakatime.com/badge/user/860bb1e2-475b-4f61-ae1b-4ec2ce43ad2b/project/703b024c-b9e0-405d-b158-0eac384b30f6.svg)](https://wakatime.com/badge/user/860bb1e2-475b-4f61-ae1b-4ec2ce43ad2b/project/703b024c-b9e0-405d-b158-0eac384b30f6)  |
 | Open    | 2025-06-28                 |
 | Closed  | *Not closed yet*           |
 
