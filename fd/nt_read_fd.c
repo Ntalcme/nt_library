@@ -59,7 +59,7 @@ nt_buffer *nt_read_lines(const int fd)
         }
     }
 
-    if (nt_buffer_add(lines, NULL))
+    if (nt_buffer_add(lines, &GLOBAL_NULL_PTR))
     {
         nt_buffer_delete(lines); 
         return (NULL);

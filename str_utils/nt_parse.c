@@ -6,6 +6,35 @@ static void nt_parse_fail(nt_buffer *buf, nt_buffer *str)
     if (str) nt_buffer_free(str);
 }
 
+static int manage_add_str(nt_buffer *buf, nt_buffer *str)
+{
+    char *tmp;
+
+    if (!buf || !str) return (1);
+
+    if (nt_buffer_add(str, &GLOBAL_NULL_CHAR))
+    {
+        nt_parse_fail(buf, str);
+        return (1);
+    }
+
+    tmp = nt_strdup(str->data);
+    if(!tmp)
+    {
+        nt_parse_fail(buf, str);
+        return (1);
+    }
+
+    if (nt_buffer_add(buf, &tmp))
+    {
+        free(tmp);
+        nt_parse_fail(buf, str);
+        return (1);
+    }
+
+    return (0);
+}
+
 nt_buffer *nt_parse(const char *str, const char sep)
 {
     nt_buffer tmp;
@@ -20,7 +49,7 @@ nt_buffer *nt_parse(const char *str, const char sep)
     res = nt_buffer_new(16, sizeof(char *), nt_free_char_ptr);
     if (!res)
     {
-        nt_char_buffer_free(&tmp);
+        nt_buffer_free(&tmp);
         return (NULL);
     }
 
@@ -38,11 +67,7 @@ nt_buffer *nt_parse(const char *str, const char sep)
         
         else 
         {
-            if (nt_buffer_add(&tmp, &GLOBAL_NULL_CHAR) || nt_buffer_add(res, nt_strdup(tmp.data))) 
-            {
-                nt_parse_fail(res, &tmp);
-                return (NULL);
-            }
+            if (manage_add_str(res, &tmp)) return (NULL);
             nt_buffer_clear(&tmp);
             i++;
         }
@@ -50,14 +75,10 @@ nt_buffer *nt_parse(const char *str, const char sep)
 
     if (tmp.len > 0) 
     {
-        if (nt_buffer_add(&tmp, &GLOBAL_NULL_CHAR) || nt_buffer_add(res, nt_strdup(tmp.data))) 
-        {
-            nt_parse_fail(res, &tmp);
-            return (NULL);
-        }
+        if (manage_add_str(res, &tmp)) return (NULL);
     }
 
-    if (nt_buffer_add(res, NULL)) 
+    if (nt_buffer_add(res, &GLOBAL_NULL_PTR)) 
     {
         nt_parse_fail(res, &tmp);
         return (NULL);
