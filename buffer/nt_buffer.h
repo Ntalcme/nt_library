@@ -14,8 +14,8 @@ typedef struct {                                                                
 } nt_##TypeName##_buffer;                                                                                   \ 
                                                                                                             \
 int nt_##TypeName##_buffer_init(nt_##TypeName##_buffer *buf, size_t capacity, void (*destructor)(type)) {   \
-    buf->data = malloc(capacity * sizeof(type));                                                            \
-    if (!buf->data) return (0);                                                                             \
+    buf->data = capacity != 0 ? malloc(capacity * sizeof(type)) : NULL;                                     \
+    if (capacity != 0 && !buf->data) return (0);                                                            \
     buf->len = 0;                                                                                           \
     buf->capacity = capacity;                                                                               \
     buf->destructor = destructor;                                                                           \
@@ -50,6 +50,10 @@ void nt_##TypeName##_buffer_free(nt_##TypeName##_buffer *buf) {                 
     buf->len = 0;                                                                                           \
     buf->capacity = 0;                                                                                      \
     buf->destructor = NULL;                                                                                 \
-}                                                                                                           
+}                                                                                                           \                                                           
+                                                                                                            \
+int nt_##TypeName##_buffer_is_empty(nt_##TypeName##_buffer *buf) {                                          \
+    return (buf->data == NULL && buf->len == 0 && buf->capacity == 0) ;                                     \                                                                                           \
+}   
 
 #endif
