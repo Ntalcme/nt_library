@@ -7,7 +7,6 @@ char *nt_read_line(const int fd)
     char c;
     ssize_t n;
     char *res;
-    char null_char;
 
     if (fd < 0) return (NULL);
 
@@ -30,8 +29,7 @@ char *nt_read_line(const int fd)
         nt_buffer_free(&line);
         return (NULL);
     }
-    null_char = '\0';
-    if (nt_buffer_add(&line, &null_char))
+    if (nt_buffer_add(&line, &GLOBAL_NULL_CHAR))
     {
             nt_buffer_free(&line);
             return (NULL);
