@@ -1,8 +1,5 @@
 #include "nt_str_utils.h"
 
-DEFINE_BUFFER_TYPE(char, char)
-DEFINE_BUFFER_TYPE(char *, ptr_char)
-
 static void nt_parse_fail(nt_ptr_char_buffer *buf, nt_char_buffer *str)
 {
     nt_ptr_char_buffer_delete(buf);
@@ -20,7 +17,7 @@ nt_ptr_char_buffer *nt_parse(const char *str, const char sep)
         return (NULL);
     }
 
-    res = nt_ptr_char_buffer_new(16, free);
+    res = nt_ptr_char_buffer_new(16, nt_ptr_char_buffer_free_wrapper);
     if (!res)
     {
         nt_char_buffer_free(&tmp);

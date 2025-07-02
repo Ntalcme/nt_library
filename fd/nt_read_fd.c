@@ -1,9 +1,6 @@
 #include "nt_fd.h"
 #include <stdlib.h>
 
-DEFINE_BUFFER_TYPE(char, char)
-DEFINE_BUFFER_TYPE(char *, ptr_char)
-
 char *nt_read_line(const int fd)
 {
     nt_char_buffer line;
@@ -44,7 +41,7 @@ nt_ptr_char_buffer *nt_read_lines(const int fd)
     nt_ptr_char_buffer *lines;
     char *line;
 
-    lines = nt_ptr_char_buffer_new(16, free);
+    lines = nt_ptr_char_buffer_new(16, nt_ptr_char_buffer_free_wrapper);
     if (!lines) return (NULL);
 
     while ((line = nt_read_line(fd)) != NULL)

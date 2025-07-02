@@ -84,11 +84,16 @@ nt_##TypeName##_buffer *nt_##TypeName##_buffer_new(size_t capacity, void (*destr
     return (buf);                                                                                           \
 }                                                                                                           \
                                                                                                             \
-void nt_##TypeName##_delete(nt_##TypeName##_buffer *buf)                                                    \
+void nt_##TypeName##_buffer_delete(nt_##TypeName##_buffer *buf)                                             \
 {                                                                                                           \
     if (!buf) return;                                                                                       \
     nt_##TypeName##_buffer_free(buf);                                                                       \
     free(buf);                                                                                              \
 }
+
+DEFINE_BUFFER_TYPE(char, char)
+DEFINE_BUFFER_TYPE(char *, ptr_char)
+
+void nt_ptr_char_buffer_free_wrapper(char **buf);
 
 #endif
