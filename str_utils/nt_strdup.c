@@ -24,7 +24,7 @@ char *nt_strdup(const char *str)
             res[i] = str[i];
             i++;
         }
-        res[i] = '\0';
+        res[i] = GLOBAL_NULL_CHAR;
 
         return (res);
 }
