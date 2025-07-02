@@ -11,9 +11,9 @@ typedef struct {                                                                
     size_t len;                                                                                             \
     size_t capacity;                                                                                        \
     void (*destructor)(type*);                                                                              \
-} nt_##TypeName##_buffer;                                                                                   \ 
+} nt_##TypeName##_buffer;                                                                                   \
                                                                                                             \
-int nt_##TypeName##_buffer_init(nt_##TypeName##_buffer *buf, size_t capacity, void (*destructor)(type)) {   \
+int nt_##TypeName##_buffer_init(nt_##TypeName##_buffer *buf, size_t capacity, void (*destructor)(type*)) {   \
     buf->data = capacity != 0 ? malloc(capacity * sizeof(type)) : NULL;                                     \
     if (capacity != 0 && !buf->data) return (0);                                                            \
     buf->len = 0;                                                                                           \
@@ -28,7 +28,7 @@ int nt_##TypeName##_buffer_add(nt_##TypeName##_buffer *buf, type val) {         
                                                                                                             \
     if (buf->len == buf->capacity) {                                                                        \
         new_cap = buf->capacity ? buf->capacity * 2 : 4;                                                    \
-        *new_data = realloc(buf->data, new_cap * sizeof(type));                                             \
+        new_data = realloc(buf->data, new_cap * sizeof(type));                                             \
         if (!new_data) return (0);                                                                          \
         buf->data = new_data;                                                                               \
         buf->capacity = new_cap;                                                                            \
@@ -53,7 +53,7 @@ void nt_##TypeName##_buffer_free(nt_##TypeName##_buffer *buf) {                 
 }                                                                                                           \                                                           
                                                                                                             \
 int nt_##TypeName##_buffer_is_empty(nt_##TypeName##_buffer *buf) {                                          \
-    return (buf->data == NULL && buf->len == 0 && buf->capacity == 0) ;                                     \                                                                                           \
+    return (buf->data == NULL && buf->len == 0 && buf->capacity == 0);                                                                                                                            \
 }   
 
 #endif
