@@ -1,6 +1,9 @@
 #include "nt_fd.h"
 #include <stdlib.h>
 
+DEFINE_BUFFER_TYPE(char, char)
+DEFINE_BUFFER_TYPE(char *, ptr_char)
+
 char *nt_read_line(const int fd)
 {
     nt_char_buffer line;
@@ -9,15 +12,15 @@ char *nt_read_line(const int fd)
 
     if (fd < 0) return (NULL);
 
-    if (!nt_char_buffer_init(&line, 1, 128)) return (NULL);
+    if (!nt_char_buffer_init(&line, 128, NULL)) return (NULL);
 
     n = read(fd, &c, 1);
     while (n == 1)               
     {
         if (c == '\n') break;
-        if (!nt_char_buffer_add_char(&line, c))
+        if (!nt_char_buffer_add(&line, c))
         {
-            free(line.data);
+            nt_char_buffer_free(&line);
             return (NULL);
         } 
         n = read(fd, &c, 1);
@@ -25,56 +28,39 @@ char *nt_read_line(const int fd)
 
     if (n == -1 || (line.len == 0 && n == 0)) 
     {
-        free(line.data);
+        nt_char_buffer_free(&line);
         return (NULL);
+    }
+    if (!nt_char_buffer_add(&line, '\0'))
+    {
+            nt_char_buffer_free(&line);
+            return (NULL);
     }
     return line.data;
 }
 
-static void free_buffer(char **buffer, size_t count)
+nt_ptr_char_buffer *nt_read_lines(const int fd)
 {
-    while (count > 0)
-    {
-        free(buffer[--count]);
-    }
-    free(buffer);
-}
-
-char **nt_read_lines(const int fd)
-{
-    char **lines;
-    char **tmp;
+    nt_ptr_char_buffer *lines;
     char *line;
-    size_t bufsize;
-    size_t i;
 
-    bufsize = 20;
-    lines = malloc(sizeof(char*) * bufsize);
-
+    lines = nt_ptr_char_buffer_new(16, free);
     if (!lines) return (NULL);
 
-    i = 0;
-    lines[i] = NULL;
-    line = nt_read_line(fd);
-    while (line != NULL)               
+    while ((line = nt_read_line(fd)) != NULL)
     {
-
-        if (i+1 >= bufsize)
+        if (!nt_ptr_char_buffer_add(lines, line))
         {
-            bufsize *= 2;
-            tmp = realloc(lines, sizeof(char*) * bufsize);
-            if (!tmp) 
-            {
-                free(line);
-                free_buffer(lines, i);
-                return (NULL);
-            }
-           
-            lines = tmp;
+            nt_ptr_char_buffer_delete(lines); 
+            return (NULL);
         }
-        lines[i++] = line;
-        line = nt_read_line(fd);
     }
-    lines[i] = NULL;
+
+    if (!nt_ptr_char_buffer_add(lines, NULL))
+    {
+        nt_ptr_char_buffer_delete(lines); 
+        return (NULL);
+    }
+
     return (lines);
 }
