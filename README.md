@@ -11,6 +11,7 @@
 
 ### Summary
 [Features](#features)  
+[Compatibility](#compatibility)  
 [Local Compilation & Linking](#local-compilation--linking)  
 [System-Wide Installation](#system-wide-installation-make-install)  
 [Usage](#usage)  
@@ -37,6 +38,18 @@
         - `nt_char_buffer_init` - Init a *nt_char_buffer* (can init a custom start capacity).
     - `nt_strdup` - Duplicates a string.
     - `nt_strlen` - Returns the length of a string.
+
+## Compatibility
+
+This project uses POSIX system calls (such as read),
+making it compatible with Unix-like operating systems including:
+
+- Linux
+- macOS
+- BSD variants (FreeBSD, OpenBSD, NetBSD)
+- Other POSIX-compliant systems
+
+*Note: This project is not natively compatible with Windows.*
 
 ## Local Compilation & Linking
 
