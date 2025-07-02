@@ -27,6 +27,6 @@ void nt_buffer_clear(nt_buffer *buf);
 
 nt_buffer *nt_buffer_new(size_t capacity, size_t element_size, void (*destructor)(void*));
 
-void nt_buffer_delete(nt_buffer **buf_ptr)
+void nt_buffer_delete(nt_buffer **buf_ptr);
 
 #endif
