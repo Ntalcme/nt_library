@@ -1,4 +1,4 @@
-#include "nt_buffer.h" // Pour la définition de nt_buffer
+#include "nt_buffer.h"
 
 void nt_buffer_clear(nt_buffer *buf)
 {
