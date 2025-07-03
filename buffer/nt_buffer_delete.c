@@ -1,7 +1,7 @@
 #include "nt_buffer.h"
 
 /**
- * Free all datas of the buffer and free the buffer itself
+ * Frees all datas of the buffer and free the buffer itself
  * @param buf_ptr The pointer of the buffer's pointer 
  */
 void nt_buffer_delete(nt_buffer **buf_ptr)
