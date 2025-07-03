@@ -65,5 +65,11 @@ nt_buffer *nt_read_lines(const int fd)
         return (NULL);
     }
 
+    if (nt_buffer_shrink_to_fit(lines))
+    {
+        nt_buffer_delete(lines); 
+        return (NULL);
+    }
+
     return (lines);
 }
