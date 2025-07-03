@@ -29,4 +29,6 @@ nt_buffer *nt_buffer_new(size_t capacity, size_t element_size, void (*destructor
 
 void nt_buffer_delete(nt_buffer **buf_ptr);
 
+int nt_buffer_shrink_to_fit(nt_buffer *buf)
+
 #endif
