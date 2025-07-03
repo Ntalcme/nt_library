@@ -10,8 +10,8 @@
 
 ### Summary
 [C Version](#c-version)  
+[Compatibility](#compatibility)
 [Features](#features)  
-[Compatibility](#compatibility)  
 [Local Compilation & Linking](#local-compilation--linking)  
 [System-Wide Installation](#system-wide-installation-make-install)  
 [Usage](#usage)  
@@ -22,6 +22,18 @@
 ## C Version
 
 This library is compatible with C99 and its next versions.
+
+## Compatibility
+
+This project uses POSIX system calls (such as `read`),
+making it compatible with Unix-like operating systems including:
+
+- Linux
+- macOS
+- BSD variants (FreeBSD, OpenBSD, NetBSD)
+- Other POSIX-compliant systems
+
+*Note: This project is not natively compatible with Windows.*
 
 ## Features
 
@@ -44,18 +56,6 @@ This library is compatible with C99 and its next versions.
     - `nt_strdup` - Duplicates a string.
     - `nt_strlen` - Returns the length of a string.
     - `nt_parse` - Simple function to parse a character string.
-
-## Compatibility
-
-This project uses POSIX system calls (such as `read`),
-making it compatible with Unix-like operating systems including:
-
-- Linux
-- macOS
-- BSD variants (FreeBSD, OpenBSD, NetBSD)
-- Other POSIX-compliant systems
-
-*Note: This project is not natively compatible with Windows.*
 
 ## Local Compilation & Linking
 
