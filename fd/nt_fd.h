@@ -6,7 +6,7 @@
 # include <unistd.h>
 # include "../str_utils/nt_str_utils.h"
 # include "../conversion/nt_conversion.h"
-# include "../buffer/nt_buffer.h"
+# include "../nt_buffer/nt_buffer.h"
 
 ssize_t nt_putchar_fd(const char c, const int fd);
 ssize_t nt_putstr_fd(const char *str, const int fd);
