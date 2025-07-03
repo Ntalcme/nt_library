@@ -10,7 +10,7 @@
 
 ### Summary
 [C Version](#c-version)  
-[Compatibility](#compatibility)
+[Compatibility](#compatibility)  
 [Features](#features)  
 [Local Compilation & Linking](#local-compilation--linking)  
 [System-Wide Installation](#system-wide-installation-make-install)  
