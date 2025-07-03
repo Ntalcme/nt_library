@@ -1,6 +1,10 @@
 # include "nt_buffer.h"
 
-
+/**
+ * Frees all dynamically allocated memory within the buffer and resets its state to empty
+ * The buffer itself is not freed by this function
+ * @param buf The buffer's pointer
+ */
 void nt_buffer_free(nt_buffer *buf) 
 {
     size_t i;
