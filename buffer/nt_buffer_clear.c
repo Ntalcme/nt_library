@@ -2,7 +2,7 @@
 
 /**
  * Clear all elements of the buffer but keeps the allocated memory
- * @param buf The buffer
+ * @param buf The buffer's pointer
  */
 void nt_buffer_clear(nt_buffer *buf)
 {
