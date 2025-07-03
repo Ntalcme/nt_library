@@ -7,6 +7,7 @@
  * @param buf The buffer's pointer
  * @param capacity The initial capacity
  * @param element_size The bytes' size of the future stocked elements (ex: 1 for char type)
+ * @param destructor An appropriate destructor function pointer (NULL if not needed))
  * @return 1 if failed, 0 if success
  */
 int nt_buffer_init(nt_buffer *buf, size_t capacity, size_t element_size, void (*destructor)(void*))
