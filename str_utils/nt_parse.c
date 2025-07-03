@@ -88,7 +88,7 @@ nt_buffer *nt_parse(const char *str, const char sep)
 
     if (nt_buffer_shrink_to_fit(res))
     {
-        nt_buffer_delete(res);
+        nt_buffer_delete(&res);
         return (NULL);
     }
 

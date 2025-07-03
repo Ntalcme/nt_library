@@ -54,20 +54,20 @@ nt_buffer *nt_read_lines(const int fd)
         if (nt_buffer_add(lines, &line))
         {
             free(line);
-            nt_buffer_delete(lines); 
+            nt_buffer_delete(&lines); 
             return (NULL);
         }
     }
 
     if (nt_buffer_add(lines, &GLOBAL_NULL_PTR))
     {
-        nt_buffer_delete(lines); 
+        nt_buffer_delete(&lines); 
         return (NULL);
     }
 
     if (nt_buffer_shrink_to_fit(lines))
     {
-        nt_buffer_delete(lines); 
+        nt_buffer_delete(&lines); 
         return (NULL);
     }
 

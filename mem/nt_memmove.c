@@ -5,8 +5,8 @@ void *nt_memmove(void *dst, const void *src, size_t num_bytes)
     unsigned char *d;
     unsigned char *s;
 
-    if (!dst || !src) return;
-    if (dst == src) return;
+    if (!dst || !src) return (dst);
+    if (dst == src) return (dst);
 
     d = (unsigned char *)dst;
     s = (unsigned char *)src;
