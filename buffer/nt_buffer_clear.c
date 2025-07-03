@@ -1,5 +1,9 @@
 #include "nt_buffer.h"
 
+/**
+ * Clear all elements of the buffer but keeps the allocated memory
+ * @param buf The buffer
+ */
 void nt_buffer_clear(nt_buffer *buf)
 {
     if (!buf) return;
