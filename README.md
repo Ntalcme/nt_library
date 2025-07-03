@@ -9,6 +9,7 @@
 
 
 ### Summary
+[C Version](#c-version)  
 [Features](#features)  
 [Compatibility](#compatibility)  
 [Local Compilation & Linking](#local-compilation--linking)  
@@ -17,6 +18,10 @@
 [System-Wide Uninstallation](#system-wide-uninstallation-make-uninstall)  
 [License](#license)  
 [Author](#author)
+
+## C Version
+
+This library is compatible with C99 and its next versions.
 
 ## Features
 
@@ -28,19 +33,21 @@
     - `nt_putchar` - Writes a character to the given file descriptor.
     - `nt_putnbr` - Writes a number to the given file descriptor.
     - `nt_putstr`- Writes a string to the given file descriptor.
-    - `nt_read_line` - Reads a single line from the given file descriptor *(ommissing the character "\n")*.
-    - `nt_read_lines` - Reads all lines from the given file descriptor using `read_line`.
+    - `nt_read_line` - Reads a single line from the given file descriptor *(excluding the character "\n")*.
+    - `nt_read_lines` - Reads all lines from the given file descriptor using `nt_read_line`.
+- mem
+    - `nt_free_char_ptr` - Destructor function for `nt_buffer` struct which stocks `char *` type.
+    - `nt_memmove` - Custom version of `memmove` function.
+- `nt_buffer` - A custom generic buffer structure for dynamic array management, supporting elements of any type and custom destructor functions for memory safety.
 - `nt_printf` - Minimalist version of C printf function.
 - String utils
-    - `nt_char_buffer` - Structure of a char buffer
-        - `nt_char_buffer_add_char` - Add a char to a *nt_char_buffer* structure.
-        - `nt_char_buffer_init` - Init a *nt_char_buffer* (can init a custom start capacity).
     - `nt_strdup` - Duplicates a string.
     - `nt_strlen` - Returns the length of a string.
+    - `nt_parse` - Simple function to parse a character string.
 
 ## Compatibility
 
-This project uses POSIX system calls (such as read),
+This project uses POSIX system calls (such as `read`),
 making it compatible with Unix-like operating systems including:
 
 - Linux
