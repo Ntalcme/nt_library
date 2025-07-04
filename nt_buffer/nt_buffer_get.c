@@ -1,4 +1,4 @@
-# include "nt_buffer.h"
+#include "nt_buffer.h"
 
 /**
  * Get a pointer of nt_buffer's element at an index
@@ -10,7 +10,8 @@
  */
 void *nt_buffer_get(nt_buffer *buf, size_t i)
 {
-    if (!buf || !buf->data || i >= buf->element_count) return (NULL);
+    if (!buf || !buf->data || i >= buf->element_count)
+        return (NULL);
 
     return (void *)((unsigned char *)buf->data + (i * buf->element_size));
 }

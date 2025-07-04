@@ -1,8 +1,8 @@
 #ifndef NT_CONVERSION_H
 #define NT_CONVERSION_H
 
-# include <stdlib.h>
-# include "../str_utils/nt_str_utils.h"
+#include "../str_utils/nt_str_utils.h"
+#include <stdlib.h>
 
 #define MIN_INT -2147483648
 #define MIN_INT_STR "-2147483648"

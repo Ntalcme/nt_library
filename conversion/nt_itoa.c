@@ -1,7 +1,7 @@
-# include "nt_conversion.h"
+#include "nt_conversion.h"
 
 /**
- * Return the number of digits of an integer 
+ * Return the number of digits of an integer
  * @param n The integer
  * @return The number of digit
  */
@@ -46,9 +46,9 @@ char *nt_itoa(long long value)
     }
 
     i = digits_size(value);
-    res = malloc(sizeof(char) * (i+1));
+    res = malloc(sizeof(char) * (i + 1));
 
-    if (!res) 
+    if (!res)
     {
         return (NULL);
     }

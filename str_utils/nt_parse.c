@@ -2,15 +2,18 @@
 
 static void nt_parse_fail(nt_buffer *buf, nt_buffer *str)
 {
-    if (buf) nt_buffer_delete(&buf);
-    if (str) nt_buffer_free(str);
+    if (buf)
+        nt_buffer_delete(&buf);
+    if (str)
+        nt_buffer_free(str);
 }
 
 static int manage_add_str(nt_buffer *buf, nt_buffer *str)
 {
     char *tmp;
 
-    if (!buf || !str) return (1);
+    if (!buf || !str)
+        return (1);
 
     if (str->element_count == 0)
     {
@@ -29,7 +32,7 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
     }
 
     tmp = nt_strdup(str->data);
-    if(!tmp)
+    if (!tmp)
     {
         nt_parse_fail(buf, str);
         return (1);
@@ -57,7 +60,7 @@ nt_buffer *nt_parse(const char *str, const char sep)
     nt_buffer *res;
     size_t i;
 
-    if (nt_buffer_init(&tmp, 16, sizeof(char), NULL)) 
+    if (nt_buffer_init(&tmp, 16, sizeof(char), NULL))
     {
         return (NULL);
     }
@@ -70,31 +73,33 @@ nt_buffer *nt_parse(const char *str, const char sep)
     }
 
     i = 0;
-    while (str[i]) 
+    while (str[i])
     {
-        if (str[i] != sep) 
+        if (str[i] != sep)
         {
-            if (nt_buffer_add(&tmp, &str[i++])) 
+            if (nt_buffer_add(&tmp, &str[i++]))
             {
                 nt_parse_fail(res, &tmp);
                 return (NULL);
             }
-        } 
-        
-        else 
+        }
+
+        else
         {
-            if (manage_add_str(res, &tmp)) return (NULL);
+            if (manage_add_str(res, &tmp))
+                return (NULL);
             nt_buffer_clear(&tmp);
             i++;
         }
     }
 
-    if (tmp.element_count > 0) 
+    if (tmp.element_count > 0)
     {
-        if (manage_add_str(res, &tmp)) return (NULL);
+        if (manage_add_str(res, &tmp))
+            return (NULL);
     }
 
-    if (nt_buffer_add(res, &GLOBAL_NULL_PTR)) 
+    if (nt_buffer_add(res, &GLOBAL_NULL_PTR))
     {
         nt_parse_fail(res, &tmp);
         return (NULL);

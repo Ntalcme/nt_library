@@ -8,6 +8,7 @@
  */
 ssize_t nt_putstr_fd(const char *str, const int fd)
 {
-    if (!str) return (ERROR_WRITING);
+    if (!str)
+        return (ERROR_WRITING);
     return write(fd, str, nt_strlen(str));
 }
