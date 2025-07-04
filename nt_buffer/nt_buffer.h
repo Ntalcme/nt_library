@@ -14,12 +14,12 @@ typedef struct
     void (*destructor)(void *);
 } nt_buffer;
 
-nt_status nt_buffer_init(nt_buffer *buf,
-                         size_t     capacity,
-                         size_t     element_size,
-                         void (*destructor)(void *));
+int nt_buffer_init(nt_buffer *buf,
+                   size_t     capacity,
+                   size_t     element_size,
+                   void (*destructor)(void *));
 
-nt_status nt_buffer_add(nt_buffer *buf, const void *elt);
+int nt_buffer_add(nt_buffer *buf, const void *elt);
 
 void *nt_buffer_get(nt_buffer *buf, size_t i);
 

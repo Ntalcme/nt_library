@@ -5,7 +5,7 @@
  * @param buf The buffer's pointer
  * @return 1 if failed, 0 if success
  */
-nt_status nt_buffer_shrink_to_fit(nt_buffer *buf)
+int nt_buffer_shrink_to_fit(nt_buffer *buf)
 {
     void *new_data;
 
