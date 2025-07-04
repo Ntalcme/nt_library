@@ -11,5 +11,6 @@ nt_buffer *nt_parse(const char *str, const char sep);
 
 extern const char GLOBAL_NULL_CHAR;
 extern char *const GLOBAL_NULL_PTR;
+extern char *const GLOBAL_EMPTY_STRING;
 
 #endif

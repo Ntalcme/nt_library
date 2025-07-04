@@ -12,6 +12,16 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
 
     if (!buf || !str) return (1);
 
+    if (str->len == 0)
+    {
+        if (nt_buffer_add(buf, &GLOBAL_EMPTY_STRING))
+        {
+            nt_parse_fail(buf, str);
+            return (1);
+        }
+        return (0);
+    }
+
     if (nt_buffer_add(str, &GLOBAL_NULL_CHAR))
     {
         nt_parse_fail(buf, str);
