@@ -35,6 +35,12 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
     return (0);
 }
 
+/**
+ * Parse a character string with the given separator
+ * @param str The character string
+ * @param sep A separator
+ * @return A pointer of a nt_buffer struct containing the parsed string
+ */
 nt_buffer *nt_parse(const char *str, const char sep)
 {
     nt_buffer tmp;
