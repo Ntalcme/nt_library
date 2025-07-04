@@ -24,7 +24,8 @@ int nt_buffer_add(nt_buffer *buf, const void *elt)
         buf->capacity = new_cap;
     }
 
-    nt_memmove((char *)buf->data + (buf->element_count * buf->element_size), elt,
+    nt_memmove((char *)buf->data + (buf->element_count * buf->element_size),
+               elt,
                buf->element_size);
     buf->element_count++;
 

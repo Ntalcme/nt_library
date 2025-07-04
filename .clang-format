@@ -3,14 +3,19 @@ BasedOnStyle: LLVM
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
+
 BreakBeforeBraces: Allman
 PointerAlignment: Right
 ColumnLimit: 100
+
 AlwaysBreakAfterReturnType: None
+AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllArgumentsOnNextLine: false
 BinPackParameters: false
-AllowAllParametersOfDeclarationOnNextLine: false
+BinPackArguments: false
+
 AllowShortFunctionsOnASingleLine: Empty
+
 SpaceBeforeParens: ControlStatements
 SpacesBeforeTrailingComments: 2
 AlignConsecutiveDeclarations: true
-
