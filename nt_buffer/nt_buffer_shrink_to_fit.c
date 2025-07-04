@@ -16,6 +16,7 @@ int nt_buffer_shrink_to_fit(nt_buffer *buf)
         free(buf->data);
         buf->data = NULL;
         buf->capacity = 0;
+        return (0);
     }
 
     new_data = realloc(buf->data, buf->element_count * buf->element_size);
