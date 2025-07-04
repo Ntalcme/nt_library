@@ -6,20 +6,20 @@
  * @param elt The element to add
  * @return 1 if failed, 0 if success
  */
-nt_status nt_buffer_add(nt_buffer *buf, const void *elt)
+int nt_buffer_add(nt_buffer *buf, const void *elt)
 {
     size_t new_cap;
     void  *new_data;
 
     if (!buf || !elt)
-        return (NT_ERR_NULL_PTR);
+        return (1);
 
     if (buf->element_count == buf->capacity)
     {
         new_cap = buf->capacity ? buf->capacity * 2 : 4;
         new_data = realloc(buf->data, new_cap * buf->element_size);
         if (!new_data)
-            return (NT_ERR_ALLOC);
+            return (1);
         buf->data = new_data;
         buf->capacity = new_cap;
     }
@@ -29,5 +29,5 @@ nt_status nt_buffer_add(nt_buffer *buf, const void *elt)
                buf->element_size);
     buf->element_count++;
 
-    return (NT_SUCCESS);
+    return (0);
 }
