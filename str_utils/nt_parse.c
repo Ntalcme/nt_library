@@ -56,9 +56,9 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
  */
 nt_buffer *nt_parse(const char *str, const char sep)
 {
-    nt_buffer tmp;
+    nt_buffer  tmp;
     nt_buffer *res;
-    size_t i;
+    size_t     i;
 
     if (nt_buffer_init(&tmp, 16, sizeof(char), NULL))
     {

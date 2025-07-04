@@ -7,7 +7,7 @@
  */
 char *nt_strdup(const char *str)
 {
-    char *res;
+    char  *res;
     size_t reslen;
     size_t i;
 

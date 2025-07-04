@@ -33,7 +33,7 @@ static int digits_size(int n)
 char *nt_itoa(long long value)
 {
     char *res;
-    int i;
+    int   i;
 
     if (value == 0)
     {

@@ -4,7 +4,7 @@ static int add_string(nt_buffer *buf, char *str)
 {
     size_t new_len;
     size_t new_cap;
-    char *new_data;
+    char  *new_data;
     size_t str_len;
 
     if (!buf || !str)
@@ -39,9 +39,9 @@ static int add_string(nt_buffer *buf, char *str)
 char *nt_join(nt_buffer *buf, const char sep)
 {
     nt_buffer str;
-    char *tmp;
-    size_t i;
-    char *res;
+    char     *tmp;
+    size_t    i;
+    char     *res;
 
     if (!buf || !buf->data || buf->element_count == 0)
         return (NULL);

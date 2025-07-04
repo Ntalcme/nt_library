@@ -20,8 +20,7 @@ void nt_buffer_remove(nt_buffer *buf, size_t i)
 
     bytes_to_move = (buf->element_count - 1 - i) * buf->element_size;
     nt_memmove((char *)buf->data + (i * buf->element_size),
-               (char *)buf->data + ((i + 1) * buf->element_size),
-               bytes_to_move);
+               (char *)buf->data + ((i + 1) * buf->element_size), bytes_to_move);
 
     buf->element_count--;
 }

@@ -20,7 +20,7 @@ static int hex_digits_needed(unsigned long value)
 char *nt_itohex(unsigned long long value, char *base)
 {
     char *res;
-    int digits_needed;
+    int   digits_needed;
 
     digits_needed = hex_digits_needed(value);
 

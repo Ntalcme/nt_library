@@ -9,7 +9,7 @@
 int nt_buffer_add(nt_buffer *buf, const void *elt)
 {
     size_t new_cap;
-    void *new_data;
+    void  *new_data;
 
     if (!buf || !elt)
         return (1);
@@ -24,8 +24,8 @@ int nt_buffer_add(nt_buffer *buf, const void *elt)
         buf->capacity = new_cap;
     }
 
-    nt_memmove((char *)buf->data + (buf->element_count * buf->element_size),
-               elt, buf->element_size);
+    nt_memmove((char *)buf->data + (buf->element_count * buf->element_size), elt,
+               buf->element_size);
     buf->element_count++;
 
     return (0);

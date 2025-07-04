@@ -2,8 +2,8 @@
 
 static ssize_t nt_print_nbr_base(char *base, long long number)
 {
-    ssize_t res;
-    ssize_t tmp;
+    ssize_t   res;
+    ssize_t   tmp;
     long long len_base;
 
     res = 0;
@@ -65,9 +65,7 @@ static ssize_t manage_flags(char flg, va_list args)
         tmp = nt_putstr_fd("0x", STDOUT_FILENO);
         if (tmp == ERROR_WRITING)
             return (ERROR_WRITING);
-        return nt_print_nbr_base(HEX_LOWER,
-                                 (unsigned long)va_arg(args, void *)) +
-               tmp;
+        return nt_print_nbr_base(HEX_LOWER, (unsigned long)va_arg(args, void *)) + tmp;
     case 'x':
         return nt_print_nbr_base(HEX_LOWER, va_arg(args, unsigned int));
     case 'X':
@@ -84,9 +82,9 @@ static ssize_t manage_flags(char flg, va_list args)
 static ssize_t parsestr(const char *str, va_list args)
 {
     ssize_t char_prtd;
-    int tmp;
-    int i;
-    int error;
+    int     tmp;
+    int     i;
+    int     error;
 
     i = 0;
     char_prtd = 0;

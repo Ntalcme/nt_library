@@ -12,8 +12,7 @@
  * needed))
  * @return 1 if failed, 0 if success
  */
-int nt_buffer_init(nt_buffer *buf, size_t capacity, size_t element_size,
-                   void (*destructor)(void *))
+int nt_buffer_init(nt_buffer *buf, size_t capacity, size_t element_size, void (*destructor)(void *))
 {
     if (!buf || element_size == 0)
         return (1);

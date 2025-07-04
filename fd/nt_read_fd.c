@@ -4,9 +4,9 @@
 char *nt_read_line(const int fd)
 {
     nt_buffer line;
-    char c;
-    ssize_t n;
-    char *res;
+    char      c;
+    ssize_t   n;
+    char     *res;
 
     if (fd < 0)
         return (NULL);
@@ -48,7 +48,7 @@ char *nt_read_line(const int fd)
 nt_buffer *nt_read_lines(const int fd)
 {
     nt_buffer *lines;
-    char *line;
+    char      *line;
 
     lines = nt_buffer_new(16, sizeof(char *), nt_free_char_ptr);
     if (!lines)

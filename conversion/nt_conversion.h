@@ -12,7 +12,7 @@
 #define HEX_LOWER "0123456789abcdef"
 #define HEX_UPPER "0123456789ABCDEF"
 
-char nt_itochar(const int n);
+char  nt_itochar(const int n);
 char *nt_itoa(long long value);
 char *nt_itohex(unsigned long long value, char *base);
 
