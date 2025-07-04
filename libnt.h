@@ -5,6 +5,7 @@
 #include "fd/nt_fd.h"
 #include "nt_buffer/nt_buffer.h"
 #include "nt_printf/nt_printf.h"
+#include "nt_status/nt_status.h"
 #include "str_utils/nt_str_utils.h"
 
 #endif
