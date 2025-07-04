@@ -21,7 +21,7 @@ int nt_buffer_init(nt_buffer *buf, size_t capacity, size_t element_size, void (*
         if (!buf->data) return (1);
     }
     buf->capacity = capacity;
-    buf->len = 0;
+    buf->element_count = 0;
     buf->element_size = element_size;
     buf->destructor = destructor;
     return (0);

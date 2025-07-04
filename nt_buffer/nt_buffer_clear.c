@@ -9,9 +9,9 @@ void nt_buffer_clear(nt_buffer *buf)
     if (!buf) return;
 
     if (buf->destructor && buf->data) {
-        for (size_t i = 0; i < buf->len; i++) {
+        for (size_t i = 0; i < buf->element_count; i++) {
             buf->destructor((char *)buf->data + (i * buf->element_size));
         }
     }
-    buf->len = 0;
+    buf->element_count = 0;
 }

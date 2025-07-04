@@ -10,13 +10,13 @@ void nt_buffer_remove(nt_buffer *buf, size_t i)
 {
     size_t bytes_to_move;
 
-    if (!buf || !buf->data || i >= buf->len) return;
+    if (!buf || !buf->data || i >= buf->element_count) return;
 
     if (buf->destructor) {
         buf->destructor((char *)buf->data + (i * buf->element_size));
     }
 
-    bytes_to_move = (buf->len - 1 - i) * buf->element_size;
+    bytes_to_move = (buf->element_count - 1 - i) * buf->element_size;
     nt_memmove
     (
         (char *)buf->data + (i * buf->element_size),       
@@ -24,5 +24,5 @@ void nt_buffer_remove(nt_buffer *buf, size_t i)
         bytes_to_move                                       
     );
 
-    buf->len--;
+    buf->element_count--;
 }

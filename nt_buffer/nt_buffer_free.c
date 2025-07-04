@@ -15,7 +15,7 @@ void nt_buffer_free(nt_buffer *buf)
     {
         if (buf->destructor) 
         {
-            for (i = 0; i < buf->len; i++) 
+            for (i = 0; i < buf->element_count; i++) 
             {
                 buf->destructor((char *)buf->data + (i * buf->element_size));
             }
@@ -23,7 +23,7 @@ void nt_buffer_free(nt_buffer *buf)
         free(buf->data);
         buf->data = NULL;
     }
-    buf->len = 0;
+    buf->element_count = 0;
     buf->capacity = 0;
     buf->destructor = NULL;
 }

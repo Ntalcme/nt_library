@@ -24,7 +24,7 @@ char *nt_read_line(const int fd)
         n = read(fd, &c, 1);
     }
 
-    if (n == -1 || (line.len == 0 && n == 0)) 
+    if (n == -1 || (line.element_count == 0 && n == 0)) 
     {
         nt_buffer_free(&line);
         return (NULL);

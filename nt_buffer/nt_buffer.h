@@ -7,7 +7,7 @@
 typedef struct
 {
     void     *data;
-    size_t   len;
+    size_t   element_count;
     size_t   capacity;
     size_t   element_size;
     void     (*destructor)(void*);

@@ -1,5 +1,4 @@
 # include "nt_str_utils.h"
-# include <stdio.h>
 
 static int add_string(nt_buffer *buf, char *str)
 {
@@ -12,7 +11,7 @@ static int add_string(nt_buffer *buf, char *str)
     if (buf->element_size != sizeof(char)) return (1);
 
     str_len = nt_strlen(str);
-    new_len = buf->len + str_len;
+    new_len = buf->element_count + str_len;
     
     if (new_len >= buf->capacity)
     {
@@ -29,9 +28,9 @@ static int add_string(nt_buffer *buf, char *str)
     }
 
 
-    nt_memmove((char *)buf->data + buf->len, str, str_len);
+    nt_memmove((char *)buf->data + buf->element_count, str, str_len);
 
-    buf->len = new_len;
+    buf->element_count = new_len;
     return (0);
 }
 
@@ -42,16 +41,16 @@ char *nt_join(nt_buffer *buf, const char sep)
     size_t i;
     char *res;
 
-    if (!buf || !buf->data || buf->len == 0) return (NULL);
+    if (!buf || !buf->data || buf->element_count == 0) return (NULL);
     if (nt_buffer_init(&str, 32, sizeof(char), NULL)) return (NULL);
 
-    for (i = 0; i < buf->len - 1; i++)
+    for (i = 0; i < buf->element_count - 1; i++)
     {
         tmp = *(char **)nt_buffer_get(buf, i);
         if (!tmp) return (NULL);
 
         if (add_string(&str, tmp)) return (NULL);
-        if (i < buf->len - 2) if (nt_buffer_add(&str, &sep)) return (NULL);
+        if (i < buf->element_count - 2) if (nt_buffer_add(&str, &sep)) return (NULL);
     }
 
     if (nt_buffer_add(&str, &GLOBAL_NULL_CHAR))

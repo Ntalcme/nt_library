@@ -13,7 +13,7 @@ int nt_buffer_add(nt_buffer *buf, const void *elt)
 
     if (!buf || !elt) return (1);
 
-    if (buf->len == buf->capacity)
+    if (buf->element_count == buf->capacity)
     {
         new_cap = buf->capacity ? buf->capacity * 2 : 4;
         new_data = realloc(buf->data, new_cap * buf->element_size);
@@ -22,8 +22,8 @@ int nt_buffer_add(nt_buffer *buf, const void *elt)
         buf->capacity = new_cap;
     }
 
-    nt_memmove((char *)buf->data + (buf->len * buf->element_size), elt, buf->element_size);
-    buf->len++;
+    nt_memmove((char *)buf->data + (buf->element_count * buf->element_size), elt, buf->element_size);
+    buf->element_count++;
 
     return (0);
 }

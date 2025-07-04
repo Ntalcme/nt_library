@@ -12,7 +12,7 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
 
     if (!buf || !str) return (1);
 
-    if (str->len == 0)
+    if (str->element_count == 0)
     {
         if (nt_buffer_add(buf, &GLOBAL_EMPTY_STRING))
         {
@@ -89,7 +89,7 @@ nt_buffer *nt_parse(const char *str, const char sep)
         }
     }
 
-    if (tmp.len > 0) 
+    if (tmp.element_count > 0) 
     {
         if (manage_add_str(res, &tmp)) return (NULL);
     }
