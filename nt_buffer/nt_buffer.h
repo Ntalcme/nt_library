@@ -2,7 +2,6 @@
 #define NT_BUFFER_H
 
 #include "../mem/nt_mem.h"
-#include "../nt_status/nt_status.h"
 #include <stdlib.h>
 
 typedef struct
