@@ -1,4 +1,4 @@
-#include <nt_library/nt_conversion.h>
+#include <libnt/nt_conversion.h>
 
 /**
  * Return the number of digits of an integer

@@ -1,4 +1,4 @@
-#include <nt_library/nt_buffer.h>
+#include <libnt/nt_buffer.h>
 
 /**
  * Remove an element of the nt_buffer at an index

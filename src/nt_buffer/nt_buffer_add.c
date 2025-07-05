@@ -1,4 +1,4 @@
-#include <nt_library/nt_buffer.h>
+#include <libnt/nt_buffer.h>
 
 /**
  * Add an element to a nt_buffer struct

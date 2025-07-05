@@ -1,4 +1,4 @@
-#include <nt_library/nt_mem.h>
+#include <libnt/nt_mem.h>
 
 void nt_free_char_ptr(void *elt_ptr)
 {

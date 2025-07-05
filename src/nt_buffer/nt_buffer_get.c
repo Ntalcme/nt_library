@@ -1,4 +1,4 @@
-#include <nt_library/nt_buffer.h>
+#include <libnt/nt_buffer.h>
 
 /**
  * Get a pointer of nt_buffer's element at an index

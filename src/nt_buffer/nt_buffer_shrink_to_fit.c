@@ -1,4 +1,4 @@
-#include <nt_library/nt_buffer.h>
+#include <libnt/nt_buffer.h>
 
 /**
  * Reallocs only the necessary memory for the buffer's data

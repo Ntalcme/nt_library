@@ -1,4 +1,4 @@
-#include <nt_library/nt_str_utils.h>
+#include <libnt/nt_str_utils.h>
 
 static int add_string(nt_buffer *buf, char *str)
 {

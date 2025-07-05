@@ -1,4 +1,4 @@
-#include <nt_library/nt_str_utils.h>
+#include <libnt/nt_str_utils.h>
 
 /**
  * Return the len of a character string

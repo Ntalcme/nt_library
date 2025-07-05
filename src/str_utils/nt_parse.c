@@ -1,4 +1,4 @@
-#include <nt_library/nt_str_utils.h>
+#include <libnt/nt_str_utils.h>
 
 static void nt_parse_fail(nt_buffer *buf, nt_buffer *str)
 {

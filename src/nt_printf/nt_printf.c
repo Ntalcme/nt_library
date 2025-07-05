@@ -1,4 +1,4 @@
-#include <nt_library/nt_printf.h>
+#include <libnt/nt_printf.h>
 
 static ssize_t nt_print_nbr_base(char *base, long long number)
 {

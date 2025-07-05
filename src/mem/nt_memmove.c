@@ -1,4 +1,4 @@
-#include <nt_library/nt_mem.h>
+#include <libnt/nt_mem.h>
 
 /**
  * Copy an amount of bytes from a source to a destination

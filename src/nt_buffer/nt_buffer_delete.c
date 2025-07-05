@@ -1,4 +1,4 @@
-#include <nt_library/nt_buffer.h>
+#include <libnt/nt_buffer.h>
 
 /**
  * Frees all datas of the buffer and free the buffer itself

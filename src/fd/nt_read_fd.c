@@ -1,4 +1,4 @@
-#include <nt_library/nt_fd.h>
+#include <libnt/nt_fd.h>
 #include <stdlib.h>
 
 char *nt_read_line(const int fd)
