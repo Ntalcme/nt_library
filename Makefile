@@ -1,58 +1,73 @@
-NAME 			= libnt.a
-CC 				= gcc
-CFLAGS			= -Wall -Werror -Wextra -pedantic -std=c99
-AR 				= ar
-ARFLAGS 		= rcs
-RM 				= rm -rf
-SRCS 			=  $(shell find . -name '*.c')
-OBJ_DIR     	= obj
-OBJS 			= $(patsubst ./%.c, $(OBJ_DIR)/%.o, $(SRCS))
-DEP_FILES		= $(OBJS:.o=.d)
-INSTALL_DIR		= /usr/local
-INSTALL_LIB_DIR	= $(INSTALL_DIR)/lib
-INSTALL_INC_DIR	= $(INSTALL_DIR)/include/$(NAME:.a=)
+NAME        		= libnt.a
+CC          		= gcc
+CFLAGS      		= -Wall -Wextra -Werror -pedantic -std=c99 -Iinclude
+AR          		= ar
+ARFLAGS     		= rcs
+RM          		= rm -rf
 
-all:			$(NAME)
+BUILD_DIR   		= build
+OBJ_DIR     		= $(BUILD_DIR)/obj
+LIB_DIR     		= $(BUILD_DIR)/lib
 
-# (may require `sudo` privileges)
-install:		all
-				mkdir -p $(INSTALL_LIB_DIR)
-				cp $(NAME) $(INSTALL_LIB_DIR)
-				mkdir -p $(INSTALL_INC_DIR)
-				cp libnt.h $(INSTALL_INC_DIR)
-				@find . -name '*.h' -exec dirname {} \; | sort -u | while read dir; do \
-					mkdir -p $(INSTALL_INC_DIR)/$$dir; \
-    				cp $$dir/*.h $(INSTALL_INC_DIR)/$$dir; \
-				done
-				@echo "$(NAME) library was installed in $(INSTALL_LIB_DIR) and its headers in $(INSTALL_INC_DIR) !"
-				@echo "Cleaning up local build files..."
-				$(RM) $(OBJ_DIR)
-				$(RM) $(NAME)
-				@echo "Local build files removed."
+LIB_SRCS    		= $(shell find src/ -name '*.c')
 
-# (may require `sudo` privileges)
+LIB_OBJS    		= $(patsubst src/%.c, $(OBJ_DIR)/%.o, $(LIB_SRCS))
+
+DEP_FILES   		= $(LIB_OBJS:.o=.d)
+
+INSTALL_DIR         = /usr/local
+INSTALL_LIB_DIR     = $(INSTALL_DIR)/lib
+INSTALL_INC_DIR     = $(INSTALL_DIR)/include/$(NAME:.a=)
+
+all: 				$(LIB_DIR)/$(NAME)
+
+install: 			all
+					@echo "Installation of the $(NAME) library..."
+					@mkdir -p $(INSTALL_LIB_DIR)
+					@cp $(LIB_DIR)/$(NAME) $(INSTALL_LIB_DIR)
+					@mkdir -p $(INSTALL_INC_DIR)
+					@cp -r include/nt_library/* $(INSTALL_INC_DIR)/
+					@echo "$(NAME) has been installed in $(INSTALL_LIB_DIR) and its headers in $(INSTALL_INC_DIR) !"
+					@echo "Cleaning up local build files..."
+					$(RM) $(BUILD_DIR)
+					@echo "Local clean-up completed."
+
 uninstall:
-				$(RM) $(INSTALL_LIB_DIR)/$(NAME)
-				$(RM) $(INSTALL_INC_DIR)
-				@echo "$(NAME) library was successfully uninstalled."
+					@echo "Uninstalling the $(NAME) library..."
+					$(RM) $(INSTALL_LIB_DIR)/$(NAME)
+					$(RM) $(INSTALL_INC_DIR)
+					@echo "$(NAME) has been uninstalled."
 
-$(NAME): 		$(OBJ_DIR) $(OBJS)
-				$(AR) $(ARFLAGS) $(NAME) $(OBJS)
+$(LIB_DIR)/$(NAME): $(LIB_OBJS) | $(LIB_DIR)
+					@$(AR) $(ARFLAGS) $@ $(LIB_OBJS)
+					@echo "Compilation completed."
 
-$(OBJ_DIR):	
-				mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: 	src/%.c
+					@mkdir -p $(dir $@)
+					@echo "Compilation of $<..."
+					@$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
 
-$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-				mkdir -p $(dir $@)
-				$(CC) $(CFLAGS) -MMD -MP -c $< -o $@
+$(BUILD_DIR):
+					@mkdir -p $@
 
--include 		$(DEP_FILES)
+$(OBJ_DIR):
+					@mkdir -p $@
+
+$(LIB_DIR):
+					@mkdir -p $@
 
 clean:
-				$(RM) $(OBJ_DIR)
-fclean:			clean
-				$(RM) $(NAME)
+					@echo "Cleaning up object files and dependencies..."
+					$(RM) $(OBJ_DIR)
 
-re:				fclean $(NAME)
+fclean: 
+					@echo "Cleaning up the $(NAME) library..."
+					$(RM) $(BUILD_DIR)
+					@echo "Local clean-up completed."
 
-.PHONY:			all clean fclean re install uninstall
+re: 				fclean all
+
+
+-include 			$(DEP_FILES)
+
+.PHONY: 			all lib clean fclean re install uninstall
