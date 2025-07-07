@@ -31,7 +31,7 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
         return (1);
     }
 
-    tmp = nt_strdup(nt_buffer_get_data(str));
+    tmp = nt_strdup((char *)nt_buffer_get_data(str));
     if (!tmp)
     {
         nt_parse_fail(buf, str);
