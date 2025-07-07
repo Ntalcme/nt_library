@@ -18,10 +18,6 @@ size_t      nt_buffer_get_count(const nt_buffer *buf);
 size_t      nt_buffer_get_element_size(const nt_buffer *buf);
 size_t      nt_buffer_get_capacity(const nt_buffer *buf);
 
-int nt_buffer_set_data(nt_buffer *buf, void *new_value);
-int nt_buffer_set_count(nt_buffer *buf, size_t new_value);
-int nt_buffer_set_capacity(nt_buffer *buf, size_t new_value);
-
 #define nt_buffer_get_element_as(type, buf, i) ((const type *)nt_buffer_get_element(buf, i))
 
 #endif

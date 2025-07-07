@@ -1,4 +1,5 @@
 #include "libnt/nt_str_utils.h"
+#include "nt_str_utils_internal.h"
 
 static void nt_parse_fail(nt_buffer *buf, nt_buffer *str)
 {
@@ -10,7 +11,7 @@ static void nt_parse_fail(nt_buffer *buf, nt_buffer *str)
 
 static int manage_add_str(nt_buffer *buf, nt_buffer *str)
 {
-    char *tmp;
+    const char *tmp;
 
     if (!buf || !str)
         return (1);
@@ -31,7 +32,7 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
         return (1);
     }
 
-    tmp = nt_strdup((char *)nt_buffer_get_data(str));
+    tmp = nt_strdup((const char *)nt_buffer_get_data(str));
     if (!tmp)
     {
         nt_parse_fail(buf, str);

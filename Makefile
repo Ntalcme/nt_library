@@ -1,6 +1,6 @@
 NAME        		= libnt.a
 CC          		= gcc
-CFLAGS      		= -Wall -Wextra -Werror -pedantic -std=c99 -Iinclude
+CFLAGS      		= -Wall -Wextra -Werror -pedantic -std=c99 -Iinclude -Isrc
 AR          		= ar
 ARFLAGS     		= rcs
 RM          		= rm -rf

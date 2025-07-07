@@ -1,6 +1,7 @@
 #include "libnt/nt_str_utils.h"
+#include "nt_str_utils_internal.h"
 
-static int add_string(nt_buffer *buf, char *str)
+static int add_string(nt_buffer *buf, const char *str)
 {
     size_t new_len;
     size_t new_cap;
@@ -38,10 +39,10 @@ static int add_string(nt_buffer *buf, char *str)
 
 char *nt_join(nt_buffer *buf, const char sep)
 {
-    nt_buffer *str;
-    char      *tmp;
-    size_t     i;
-    char      *res;
+    nt_buffer  *str;
+    const char *tmp;
+    size_t      i;
+    char       *res;
 
     if (!nt_buffer_get_data(buf) || nt_buffer_get_count(buf) == 0)
         return (NULL);
