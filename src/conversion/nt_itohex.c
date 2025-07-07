@@ -1,26 +1,25 @@
 #include "libnt/nt_conversion.h"
 
-static int hex_digits_needed(unsigned long value)
+static int hex_digits_needed(unsigned long long value)
 {
+    int res = 0;
 
-    int res;
+    if (value == 0)
+        return 1;
 
-    if (value <= 15)
-        return (1);
-
-    res = 0;
     while (value)
     {
         value >>= 4;
         res++;
     }
-    return (res);
+    return res;
 }
 
-char *nt_itohex(unsigned long long value, char *base)
+char *nt_itohex(unsigned long long value, const char *base)
 {
     char *res;
     int   digits_needed;
+    int   i;
 
     digits_needed = hex_digits_needed(value);
 
@@ -28,7 +27,7 @@ char *nt_itohex(unsigned long long value, char *base)
     if (!res)
         return (NULL);
 
-    for (int i = digits_needed - 1; i >= 0; --i)
+    for (i = digits_needed - 1; i >= 0; --i)
     {
         res[i] = base[value & 0xF];
         value >>= 4;
