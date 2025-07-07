@@ -1,11 +1,11 @@
-#include <libnt/nt_str_utils.h>
+#include "libnt/nt_str_utils.h"
 
 static void nt_parse_fail(nt_buffer *buf, nt_buffer *str)
 {
     if (buf)
         nt_buffer_delete(&buf);
     if (str)
-        nt_buffer_free(str);
+        nt_buffer_delete(&str);
 }
 
 static int manage_add_str(nt_buffer *buf, nt_buffer *str)
@@ -15,7 +15,7 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
     if (!buf || !str)
         return (1);
 
-    if (str->element_count == 0)
+    if (nt_buffer_get_count(str) == 0)
     {
         if (nt_buffer_add(buf, &GLOBAL_EMPTY_STRING))
         {
@@ -31,7 +31,7 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
         return (1);
     }
 
-    tmp = nt_strdup(str->data);
+    tmp = nt_strdup(nt_buffer_get_data(str));
     if (!tmp)
     {
         nt_parse_fail(buf, str);
@@ -56,11 +56,12 @@ static int manage_add_str(nt_buffer *buf, nt_buffer *str)
  */
 nt_buffer *nt_parse(const char *str, const char sep)
 {
-    nt_buffer  tmp;
+    nt_buffer *tmp;
     nt_buffer *res;
     size_t     i;
 
-    if (nt_buffer_init(&tmp, 16, sizeof(char), NULL))
+    tmp = nt_buffer_new(16, sizeof(char), NULL);
+    if (!tmp)
     {
         return (NULL);
     }
@@ -68,7 +69,7 @@ nt_buffer *nt_parse(const char *str, const char sep)
     res = nt_buffer_new(16, sizeof(char *), nt_free_char_ptr);
     if (!res)
     {
-        nt_buffer_free(&tmp);
+        nt_buffer_delete(&tmp);
         return (NULL);
     }
 
@@ -77,35 +78,41 @@ nt_buffer *nt_parse(const char *str, const char sep)
     {
         if (str[i] != sep)
         {
-            if (nt_buffer_add(&tmp, &str[i++]))
+            if (nt_buffer_add(tmp, &str[i++]))
             {
-                nt_parse_fail(res, &tmp);
+                nt_parse_fail(res, tmp);
                 return (NULL);
             }
         }
 
         else
         {
-            if (manage_add_str(res, &tmp))
+            if (manage_add_str(res, tmp))
+            {
+                nt_parse_fail(res, tmp);
                 return (NULL);
-            nt_buffer_clear(&tmp);
+            }
+            nt_buffer_clear(tmp);
             i++;
         }
     }
 
-    if (tmp.element_count > 0)
+    if (nt_buffer_get_count(tmp) > 0)
     {
-        if (manage_add_str(res, &tmp))
+        if (manage_add_str(res, tmp))
+        {
+            nt_parse_fail(res, tmp);
             return (NULL);
+        }
     }
 
     if (nt_buffer_add(res, &GLOBAL_NULL_PTR))
     {
-        nt_parse_fail(res, &tmp);
+        nt_parse_fail(res, tmp);
         return (NULL);
     }
 
-    nt_buffer_free(&tmp);
+    nt_buffer_delete(&tmp);
 
     if (nt_buffer_shrink_to_fit(res))
     {

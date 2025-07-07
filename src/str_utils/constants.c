@@ -1,4 +1,4 @@
-#include <libnt/nt_str_utils.h>
+#include "libnt/nt_str_utils.h"
 
 const char GLOBAL_NULL_CHAR = '\0';
 

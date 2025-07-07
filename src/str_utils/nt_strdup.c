@@ -1,4 +1,4 @@
-#include <libnt/nt_str_utils.h>
+#include "libnt/nt_str_utils.h"
 
 /**
  * Duplicate a character string
