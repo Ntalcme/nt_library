@@ -2,6 +2,6 @@
 
 const char GLOBAL_NULL_CHAR = '\0';
 
-char *const GLOBAL_EMPTY_STRING = "";
+const char *const GLOBAL_EMPTY_STRING = "";
 
-char *const GLOBAL_NULL_PTR = NULL;
+const char *const GLOBAL_NULL_PTR = NULL;
