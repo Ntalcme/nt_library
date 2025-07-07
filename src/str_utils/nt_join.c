@@ -1,4 +1,4 @@
-#include <libnt/nt_str_utils.h>
+#include "libnt/nt_str_utils.h"
 
 static int add_string(nt_buffer *buf, char *str)
 {
@@ -9,66 +9,71 @@ static int add_string(nt_buffer *buf, char *str)
 
     if (!buf || !str)
         return (1);
-    if (buf->element_size != sizeof(char))
+    if (nt_buffer_get_element_size(buf) != sizeof(char))
         return (1);
 
     str_len = nt_strlen(str);
-    new_len = buf->element_count + str_len;
+    new_len = nt_buffer_get_count(buf) + str_len;
 
-    if (new_len >= buf->capacity)
+    if (new_len >= nt_buffer_get_capacity(buf))
     {
-        new_cap = buf->capacity ? buf->capacity * 2 : 4;
+        new_cap = nt_buffer_get_capacity(buf) ? nt_buffer_get_capacity(buf) * 2 : 4;
         while (new_len > new_cap)
         {
             new_cap *= 2;
         }
-        new_data = realloc(buf->data, new_cap * buf->element_size);
+        new_data = realloc(nt_buffer_get_data(buf), new_cap * nt_buffer_get_element_size(buf));
         if (!new_data)
             return (1);
 
-        buf->data = new_data;
-        buf->capacity = new_cap;
+        nt_buffer_set_data(buf, new_data);
+        nt_buffer_set_capacity(buf, new_cap);
     }
 
-    nt_memmove((char *)buf->data + buf->element_count, str, str_len);
+    nt_memmove((char *)nt_buffer_get_data(buf) + nt_buffer_get_count(buf), str, str_len);
 
-    buf->element_count = new_len;
+    nt_buffer_set_count(buf, new_len);
     return (0);
 }
 
 char *nt_join(nt_buffer *buf, const char sep)
 {
-    nt_buffer str;
-    char     *tmp;
-    size_t    i;
-    char     *res;
+    nt_buffer *str;
+    char      *tmp;
+    size_t     i;
+    char      *res;
 
-    if (!buf || !buf->data || buf->element_count == 0)
-        return (NULL);
-    if (nt_buffer_init(&str, 32, sizeof(char), NULL))
+    if (!nt_buffer_get_data(buf) || nt_buffer_get_count(buf) == 0)
         return (NULL);
 
-    for (i = 0; i < buf->element_count - 1; i++)
+    str = nt_buffer_new(32, sizeof(char), NULL);
+    if (!str)
+        return (NULL);
+
+    for (i = 0; i < nt_buffer_get_count(buf) - 1; i++)
     {
-        tmp = *(char **)nt_buffer_get(buf, i);
+        tmp = *nt_buffer_get_element_as(char **, buf, i);
         if (!tmp)
+        {
+            nt_buffer_delete(&str);
             return (NULL);
+        }
 
-        if (add_string(&str, tmp))
+        if (add_string(str, tmp))
             return (NULL);
-        if (i < buf->element_count - 2)
-            if (nt_buffer_add(&str, &sep))
+        if (i < nt_buffer_get_count(buf) - 2)
+            if (nt_buffer_add(str, &sep))
                 return (NULL);
     }
 
-    if (nt_buffer_add(&str, &GLOBAL_NULL_CHAR))
+    if (nt_buffer_add(str, &GLOBAL_NULL_CHAR))
     {
-        nt_buffer_free(&str);
+        nt_buffer_delete(str);
         return (NULL);
     }
 
-    res = nt_strdup(str.data);
-    nt_buffer_free(&str);
+    res = nt_strdup(nt_buffer_get_data(str));
+    nt_buffer_delete(&str);
     if (!res)
         return (NULL);
     return (res);

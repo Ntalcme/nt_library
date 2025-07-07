@@ -3,15 +3,16 @@
 
 char *nt_read_line(const int fd)
 {
-    nt_buffer line;
-    char      c;
-    ssize_t   n;
-    char     *res;
+    nt_buffer *line;
+    char       c;
+    ssize_t    n;
+    char      *res;
 
     if (fd < 0)
         return (NULL);
 
-    if (nt_buffer_init(&line, 128, sizeof(char), NULL))
+    line = nt_buffer_new(128, sizeof(char), NULL);
+    if (!line)
         return (NULL);
 
     n = read(fd, &c, 1);
@@ -19,27 +20,27 @@ char *nt_read_line(const int fd)
     {
         if (c == '\n')
             break;
-        if (nt_buffer_add(&line, &c))
+        if (nt_buffer_add(line, &c))
         {
-            nt_buffer_free(&line);
+            nt_buffer_delete(&line);
             return (NULL);
         }
         n = read(fd, &c, 1);
     }
 
-    if (n == -1 || (line.element_count == 0 && n == 0))
+    if (n == -1 || (nt_buffer_get_count(line) == 0 && n == 0))
     {
-        nt_buffer_free(&line);
+        nt_buffer_delete(&line);
         return (NULL);
     }
-    if (nt_buffer_add(&line, &GLOBAL_NULL_CHAR))
+    if (nt_buffer_add(line, &GLOBAL_NULL_CHAR))
     {
-        nt_buffer_free(&line);
+        nt_buffer_delete(&line);
         return (NULL);
     }
 
-    res = nt_strdup(line.data);
-    nt_buffer_free(&line);
+    res = nt_strdup(nt_buffer_get_data(line));
+    nt_buffer_delete(&line);
     if (!res)
         return (NULL);
     return (res);
